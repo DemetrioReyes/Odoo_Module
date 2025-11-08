@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="ir_config_parameter_library_proxy_base" model="ir.config_parameter">
+        <field name="key">library_catalog.proxy_base_url</field>
+        <field name="value">http://15.204.220.159/api/book</field>
+    </record>
+</odoo>
+

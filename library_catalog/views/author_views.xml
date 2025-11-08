@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="library_author_action" model="ir.actions.act_window">
+        <field name="name">Autores</field>
+        <field name="res_model">library.author</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Registra a los autores disponibles en la biblioteca.
+            </p>
+        </field>
+    </record>
+
+    <record id="library_author_tree_view" model="ir.ui.view">
+        <field name="name">library.author.tree</field>
+        <field name="model">library.author</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="nationality"/>
+                <field name="book_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="library_author_form_view" model="ir.ui.view">
+        <field name="name">library.author.form</field>
+        <field name="model">library.author</field>
+        <field name="arch" type="xml">
+            <form string="Autor">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="nationality"/>
+                    </group>
+                    <group>
+                        <field name="biography"/>
+                    </group>
+                    <notebook>
+                        <page string="Libros">
+                            <field name="book_ids">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="isbn"/>
+                                    <field name="publication_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
+

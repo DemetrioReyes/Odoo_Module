@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="library_book_action" model="ir.actions.act_window">
+        <field name="name">Libros</field>
+        <field name="res_model">library.book</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Registra y sincroniza libros con el servicio interno.
+            </p>
+            <p>
+                Ingresa el ISBN y utiliza el botón &quot;Completar desde proxy&quot; para
+                automatizar el catálogo.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="library_catalog_menu_root" name="Biblioteca"/>
+    <menuitem
+        id="library_catalog_menu_books"
+        name="Libros"
+        parent="library_catalog_menu_root"
+        action="library_book_action"
+        sequence="10"
+    />
+    <menuitem
+        id="library_catalog_menu_authors"
+        name="Autores"
+        parent="library_catalog_menu_root"
+        action="library_author_action"
+        sequence="20"
+    />
+
+    <record id="library_book_tree_view" model="ir.ui.view">
+        <field name="name">library.book.tree</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="author_id"/>
+                <field name="isbn"/>
+                <field name="publication_date"/>
+                <field name="publisher"/>
+                <field name="page_count"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="library_book_kanban_view" model="ir.ui.view">
+        <field name="name">library.book.kanban</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="author_id">
+                <field name="name"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card">
+                            <div class="o_kanban_image">
+                                <field name="cover_image" widget="image" class="o_kanban_image"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                                <div><field name="author_id"/></div>
+                                <div>
+                                    <span>ISBN:</span>
+                                    <field name="isbn"/>
+                                </div>
+                                <div>
+                                    <span>Editorial:</span>
+                                    <field name="publisher"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="library_book_form_view" model="ir.ui.view">
+        <field name="name">library.book.form</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <form string="Libro">
+                <header>
+                    <button
+                        name="action_fetch_proxy_metadata"
+                        string="Completar desde proxy"
+                        type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible': [('isbn', '=', False)]}"
+                    />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            type="object"
+                            class="oe_stat_button"
+                            name="action_fetch_proxy_metadata"
+                            icon="fa-refresh"
+                            attrs="{'invisible': [('isbn', '=', False)]}"
+                        >
+                            <field name="proxy_last_sync" widget="datetime" class="oe_stat_text"/>
+                            <span>Última sincronización</span>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="author_id" context="{'default_name': name}"/>
+                            <field name="isbn"/>
+                            <field name="publication_date"/>
+                        </group>
+                        <group>
+                            <field name="publisher"/>
+                            <field name="page_count"/>
+                            <field name="cover_image" widget="image"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
+

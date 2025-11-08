@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_library_catalog_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.library.catalog.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Catálogo de libros" string="Catálogo de libros" data-key="library_catalog">
+                    <h2>Integración con proxy de libros</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                                <label for="proxy_base_url">URL base del proxy</label>
+                                <field name="proxy_base_url" placeholder="https://proxy.biblioteca.internal/api"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="proxy_api_key">Token Bearer</label>
+                                <field name="proxy_api_key" password="True" placeholder="Opcional"/>
+                                <span class="text-muted">El token se almacena cifrado.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
