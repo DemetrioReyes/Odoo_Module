@@ -39,6 +39,12 @@ Explicación rápida:
 
 > Cuando se habilite Odoo.sh, simplemente reemplazo “Odoo (Docker local)” por “Odoo.sh (prod / staging / test)”.
 
+### Evidencias visuales
+
+![Vista Modulo](capture/capture%201.png)
+![Sincronización en Odoo](capture/capture%202.png)
+![Libro completado](capture/capture%203.png)
+
 ---
 
 ## 3. Parte 1 – Microservicio en GCP
