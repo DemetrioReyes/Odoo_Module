@@ -11,7 +11,7 @@
 | Concepto | URL/Ubicación | Estado |
 |----------|---------------|--------|
 | Microservicio proxy (GCP) | `http://15.204.220.159/api/book/<isbn>` | Operativo |
-| Código microservicio (Flask) | `https://github.com/DemetrioReyes/Odio_apii` | Público |
+| Código microservicio (Flask) | `https://github.com/DemetrioReyes/Odoo_apii` | Público |
 | Repo privado módulo (`library_catalog`) | `git@github.com:DemetrioReyes/library_catalog.git` | Acceso read → `indexabot` |
 | Repo privado extra (`library_extra`) | `git@github.com:DemetrioReyes/library_extra.git` | Acceso read → `indexabot` |
 | Proyecto Odoo.sh | *(pendiente)* | Falta `subscription code` (ver captura `docs/img/odoo_sh_subscription.png`) |
@@ -127,7 +127,7 @@ GCP no me permitio crear la VM per en siguentes practicas si puedo demostrar mis
 1. Proporcionar código de suscripción.
 2. Ejecutar la guía `library_catalog/ODOO_SH.md`.
 3. Validar build en `test` → `staging` → `prod`.
-4. Instalar módulo en `prod`, probar flujo ISBN.
+4. Instalar módulo en `prod`, probar flujo ISBN. (aunque el modulo funciona en una imagen docker)
 5. Compartir URL final del proyecto y credenciales.
 
 
