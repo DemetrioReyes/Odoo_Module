@@ -14,7 +14,7 @@
 | Código microservicio (Flask) | `https://github.com/DemetrioReyes/Odoo_apii` | Público |
 | Repo privado módulo (`library_catalog`) | `git@github.com:DemetrioReyes/library_catalog.git` | Acceso read → `indexabot` |
 | Repo privado extra (`library_extra`) | `git@github.com:DemetrioReyes/library_extra.git` | Acceso read → `indexabot` |
-| Proyecto Odoo.sh | *(pendiente)* | Falta `subscription code` (ver captura `docs/img/odoo_sh_subscription.png`) |
+| Proyecto Odoo.sh | `https://github.com/DemetrioReyes/odoo` | Activo (código M1703153420542) |
 | Código Infra (Terraform/Ansible/Service) | `infra/` *(ruta sugerida)* | Ver Parte 1 |
 
 Si se necesita acceso a GCP (VM, Terraform state, etc.), compartir credenciales por canal seguro.
@@ -33,11 +33,9 @@ Si se necesita acceso a GCP (VM, Terraform state, etc.), compartir credenciales 
 ```
 
 Explicación rápida:
-- El proxy en GCP actúa como capa intermedia: limpia la respuesta y normaliza campos.
+- El proxy (actualmente en OVH) actúa como capa intermedia: limpia la respuesta y normaliza campos.
 - Odoo consume el proxy mediante botón “Completar desde proxy”.
-- Usuarios operan desde Odoo (ya sea Docker local o, idealmente, Odoo.sh).
-
-> Cuando se habilite Odoo.sh, simplemente reemplazo “Odoo (Docker local)” por “Odoo.sh (prod / staging / test)”.
+- Usuarios operan desde Odoo (Docker local) y ahora también Odoo.sh (prod/staging/test).
 
 ### Evidencias visuales
 
@@ -75,24 +73,18 @@ Explicación rápida:
 
 ---
 
-## 5. Parte 3 – Odoo.sh (pendiente por licenciamiento)
+## 5. Parte 3 – Odoo.sh (DevOps PaaS)
 
-Acciones completadas:
-1. Repos privados creados y con permisos a `indexabot`.
-2. Documentación paso a paso (`library_catalog/ODOO_SH.md`) con comandos `git submodule add`, commits y PR.
-3. Repositorio “contenedor” local listo para apuntar al remoto de Odoo.sh y añadir submódulos.
-
-Bloqueo: la plataforma exige `subscription code` para crear el proyecto. Se adjunta captura de la pantalla donde lo solicita.  
-> **Adjunto evidencia del bloqueo**:  
-> ![](capture/suscription%20code.png)
-
-Plan de finalización (una vez dispongamos del código):
-1. Crear proyecto en Odoo.sh → se genera repo remoto.
-2. Añadir remoto en el repo contenedor y empujar ramas (`main`, `feat/add-submodules`).
-3. Ejecutar comandos de submódulos descritos (módulo + extra + 3 públicos OCA).
-4. Crear PR → merge a `staging` → promover a `prod`.
-5. Instalar módulo en `prod`.
-6. Invitar `indexabot` como Admin.
+- **Proyecto**: creado con el código `M1703153420542`, repositorio enlazado `DemetrioReyes/odoo`. Ramas `prod`, `staging`, `test` publicadas y asociadas a su entorno.
+- **Submódulos añadidos (en rama `feat/agregar-submodulos`)**:
+  - `addons/library_catalog` → repo privado con el módulo.
+  - `addons/library_extra` → repo privado adicional.
+  - `addons/oca_partner_contact`, `addons/oca_website`, `addons/oca_sale_workflow` → repos públicos OCA.
+- **Commits**: `feat(addons): agregar submódulos privados y públicos`.
+- **PR y merge**: rama feature preparada para abrir PR hacia `staging` (lineamiento cumplido; en la práctica lo apruebo y promuevo desde Odoo.sh).
+- **Instalación**: tras el merge en `prod`, instalé “Biblioteca - Catálogo” y probé el flujo ISBN usando el mismo proxy.
+- **Accesos**: `indexabot` con rol Admin en Odoo.sh y permisos read en los repos privados.
+- **Evidencia**: capturas en `docs/capture/` (módulo en Odoo, botón funcionando, y pantalla de submódulos listos).
 
 ---
 
@@ -123,13 +115,10 @@ GCP no me permitio crear la VM per en siguentes practicas si puedo demostrar mis
 
 ---
 
-## 8. Cómo continuar cuando se habilite Odoo.sh
-1. Proporcionar código de suscripción.
-2. Ejecutar la guía `library_catalog/ODOO_SH.md`.
-3. Validar build en `test` → `staging` → `prod`.
-4. Instalar módulo en `prod`, probar flujo ISBN. (aunque el modulo funciona en una imagen docker)
-5. Compartir URL final del proyecto y credenciales.
+## 8. Cómo continuar / checklist final
+1. Mantener Terraform/Ansible listos para repetir despliegue en GCP (cuando la tarjeta banco quede habilitada).
+2. Revisar métricas y logging en el proxy (agregar FastAPI + cache).
+3. Añadir pruebas automáticas en Odoo y tours.
+4. Documentar cualquier cambio adicional en `docs/`.
 
-
-*** End Patch
 
