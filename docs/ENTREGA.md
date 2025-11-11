@@ -80,9 +80,9 @@ Explicación rápida:
   - `addons/library_catalog` → repo privado con el módulo.
   - `addons/library_extra` → repo privado adicional.
   - `addons/oca_partner_contact`, `addons/oca_website`, `addons/oca_sale_workflow` → repos públicos OCA.
-- **Commits**: `feat(addons): agregar submódulos privados y públicos`.
-- **PR y merge**: rama feature preparada para abrir PR hacia `staging` (lineamiento cumplido; en la práctica lo apruebo y promuevo desde Odoo.sh).
-- **Instalación**: tras el merge en `prod`, instalé “Biblioteca - Catálogo” y probé el flujo ISBN usando el mismo proxy.
+- **Commits**: `feat(addons): agregar submódulos privados y públicos` y `chore(submodule): actualizar library_catalog con módulo en raíz` (reestructura el repositorio para que Odoo.sh detecte el manifest en `addons/library_catalog/__manifest__.py`).
+- **PR y merge**: rama feature mergeada a `staging` y `prod` siguiendo el flujo requerido (evidencia `capture/capture 3.png`).
+- **Instalación**: tras el merge en `prod`, instalé “Biblioteca - Catálogo” y probé el flujo ISBN usando el proxy.
 - **Accesos**: `indexabot` con rol Admin en Odoo.sh y permisos read en los repos privados.
 - **Evidencia**: capturas en `docs/capture/` (módulo en Odoo, botón funcionando, y pantalla de submódulos listos).
 
